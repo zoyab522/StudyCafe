@@ -69,13 +69,11 @@ public class Model {
                         timerLbl.setText(minutes + ":" + seconds);
                     }
 
-                    if (counter == 0 && studySessionNum == 4 && !isBreak) { // long break
+                    if (counter == 0 && !isBreak) { // break
                         isBreak = true;
-                        counter = 15 * 60; 
+                        counter = 5 * 60; 
                         studySessionNum = 0;
-                    } else if (counter == 0 && !isBreak) { // short break
-                        counter = 5 * 60; // 
-                        isBreak = true;
+                    
                     } else if (counter == 0) { // break finished
                         counter = 25 * 60; 
                         studySessionNum++;
@@ -86,7 +84,7 @@ public class Model {
                     studySessionLbl.setText("Study session number: " + studySessionNum);
                     if (isBreak) {
                         whatsNextLbl.setText("Next: Study session (25 minutes)");
-                    } else if (studySessionNum == 4) {
+                    } else if (studySessionNum == 4 || studySessionNum == 8) {
                         whatsNextLbl.setText("Next: Long study break (15 minutes)");
                     } else {
                         whatsNextLbl.setText("Next: Short study break (5 minutes)");

@@ -35,7 +35,7 @@ import javafx.scene.text.FontWeight;
 
 public class View {
     
-    private final Label studySessionNumLbl, whatsNextLbL, timerLbl, introLbl, introTwoLbl, toDoLbl;
+    private final Label studySessionNumLbl, whatsNextLbL, timerLbl, introLbl, toDoLbl;
     private final Button startPauseBtn;
     private final Scene scene;
     private final TabPane tabPane;
@@ -65,11 +65,14 @@ public class View {
 
         // Set up the timer tab
         timerLbl = new Label("25:00");
-        timerLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        timerLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 180));
         startPauseBtn = new Button("Start • Pause");
+        startPauseBtn.setStyle("-fx-background-color: rgb(59,47,47); -fx-text-fill: white;"); 
         
         studySessionNumLbl = new Label();
+        studySessionNumLbl.setFont(Font.font("Noteworthy", FontWeight.BOLD, 30));
         whatsNextLbL = new Label();
+        whatsNextLbL.setFont(Font.font("Noteworthy", FontWeight.BOLD, 30));
         HBox hboxOne = new HBox(timerLbl);
         HBox hboxTwo = new HBox(startPauseBtn);
         HBox hboxThree = new HBox(studySessionNumLbl, whatsNextLbL);
@@ -100,21 +103,15 @@ public class View {
         }
         
         introLbl = new Label("StudyCafe\n");
-        introTwoLbl = new Label("Take a seat. Stay awhile. \nStudy with our Pomodoro Timer.");
         introLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
-        introTwoLbl.setFont(Font.font("Verdana", 40));
         introLbl.setTextFill(Color.web("#ffffff"));
-        introTwoLbl.setTextFill(Color.web("#ffffff"));
-        introLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, new Insets(8))));
-        introTwoLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, new Insets(8))));
+        introLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, new Insets(0))));
         
         HBox iHBox = new HBox(introLbl);
-        HBox iHBoxTwo = new HBox(introTwoLbl);
-        iHBox.setSpacing(20);
-        iHBoxTwo.setSpacing(20);
         
-        VBox stackBox = new VBox(iHBox, iHBoxTwo);
+        VBox stackBox = new VBox(iHBox);
         stackBox.setAlignment(Pos.CENTER);
+        stackBox.setSpacing(20);
         
         HBox hStack = new HBox(stackBox);
         hStack.setAlignment(Pos.CENTER);
@@ -132,7 +129,8 @@ public class View {
         
         //Sets up the Task Tab
         toDoLbl = new Label("To-Do List");
-        toDoLbl.setStyle("-fx-text-fill: rgb(59,47,47); -fx-font-size: 50;");
+        toDoLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
+        toDoLbl.setStyle("-fx-text-fill: rgb(59,47,47);");
         
         //Checkboxes
         CheckBox box1 = new CheckBox("CTIS 310 Final Project");
@@ -156,21 +154,25 @@ public class View {
         addTaskField.setPromptText("Enter New Task");
         Button addTask = new Button("Add Task");
         addTask.setStyle("-fx-background-color: rgb(59,47,47); -fx-text-fill: white;"); 
-        Button removeAllTasks = new Button("Remove All Tasks ----------- Confirm?");
+        Button removeAllTasks = new Button("Remove All Tasks —————— CONFIRM?");
         removeAllTasks.setStyle("-fx-background-color: rgb(59,47,47); -fx-text-fill: white;"); 
         HBox hBoxTasks = new HBox(addTaskField, addTask);
         
-        
         VBox vBoxTasks = new VBox(10);
-        vBoxTasks.setPadding(new Insets(20,20,20,20));
+        vBoxTasks.setPadding(new Insets(40,30,30,30));
+        vBoxTasks.setSpacing(20);
         vBoxTasks.getChildren().addAll(toDoLbl, hBoxTasks, removeAllTasks, box1, box2, box3, box4, box5, box6, box7);
+        
+        HBox centerTasks = new HBox(vBoxTasks);
+        centerTasks.setAlignment(Pos.CENTER);
+        
         addTask.setOnAction(e -> addTaskOptions(addTaskField, vBoxTasks, allTasks));
         removeAllTasks.setOnAction(e -> removeAllTaskOptions(vBoxTasks, allTasks));
-        tabTasks.setStyle("-fx-background-color: rgb(59, 38, 33); -fx-text-base-color: white; -fx-background-radius: 10;");
+        tabTasks.setStyle("-fx-background-color: rgb(59, 38, 33); -fx-text-base-color: white; -fx-background-radius: 10");
         
-        vBoxTasks.setStyle("-fx-background-color: rgba(154, 206, 235, 0.25)");
+        centerTasks.setStyle("-fx-background-color: rgba(154, 206, 235, 0.25)");
         
-        tabTasks.setContent(vBoxTasks);  
+        tabTasks.setContent(centerTasks);  
         
         //Sets up the Music Tab
         /* Following Code Does Not Work due to the Bug with WebView "not existing"
