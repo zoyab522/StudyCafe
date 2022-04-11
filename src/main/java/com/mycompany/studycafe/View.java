@@ -64,12 +64,11 @@ public class View {
         hboxOne.setAlignment(Pos.CENTER);
         hboxTwo.setAlignment(Pos.CENTER);
         hboxThree.setAlignment(Pos.CENTER);
-        
-        hboxOne.setSpacing(20);
-        hboxTwo.setSpacing(20);
         hboxThree.setSpacing(20);
         
         VBox vBoxTimer = new VBox(hboxOne, hboxTwo, hboxThree);
+        vBoxTimer.setSpacing(40);
+        vBoxTimer.setAlignment(Pos.CENTER);
         tabTimer.setContent(vBoxTimer);
         
         // Set up Welcome Tab
@@ -88,11 +87,11 @@ public class View {
         introLbl = new Label("StudyCafe\n");
         introTwoLbl = new Label("Take a seat. Stay awhile. \nStudy with our Pomodoro Timer.");
         introLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
-        introTwoLbl.setFont(Font.font("Verdana", 20));
+        introTwoLbl.setFont(Font.font("Verdana", 40));
         introLbl.setTextFill(Color.web("#ffffff"));
         introTwoLbl.setTextFill(Color.web("#ffffff"));
-        introLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, new CornerRadii(3), new Insets(8))));
-        introTwoLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, new CornerRadii(3), new Insets(8))));
+        introLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, new Insets(8))));
+        introTwoLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, new Insets(8))));
         
         HBox iHBox = new HBox(introLbl);
         HBox iHBoxTwo = new HBox(introTwoLbl);
