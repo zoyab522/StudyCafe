@@ -184,11 +184,19 @@ public class View {
         tabMusic.setStyle("-fx-background-color: rgb(62, 55, 53); -fx-text-base-color: white; -fx-background-radius: 10;");
         
         //Sets up the Whiteboard Tab
+        
+        Label titleWhiteboard = new Label("Whiteboard");
+        titleWhiteboard.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
+        HBox hWhite = new HBox(titleWhiteboard);
+        hWhite.setAlignment(Pos.CENTER);
+        hWhite.setSpacing(20);
+        
         GridPane grid = new GridPane();
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(1);
         
+        // 
         canvas.setOnMousePressed(e -> {
             gc.beginPath();
             gc.lineTo(e.getSceneX(), e.getSceneY());
@@ -196,7 +204,7 @@ public class View {
         });
         
         canvas.setOnMouseDragged(e -> {
-            gc.lineTo(e.getSceneX() - 30, e.getSceneY() - 30);
+            gc.lineTo(e.getSceneX(), e.getSceneY());
             gc.stroke();
         });
         
@@ -213,7 +221,7 @@ public class View {
         slider.setMax(100);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
-        Label titleWhiteboard = new Label("Whiteboard");
+        
         Label strokeVal = new Label();
         slider.valueProperty().addListener(e->{
             double value = slider.getValue();
@@ -222,13 +230,14 @@ public class View {
             gc.setLineWidth(value);
         });
         
-        grid.addRow(0, titleWhiteboard, cp, slider, strokeVal);
+        grid.addRow(0, cp, slider, strokeVal);
         grid.setHgap(20);
-        grid.setAlignment(Pos.TOP_CENTER);
+        grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(20,0,0,0));
         
         VBox whiteboard = new VBox();
-        whiteboard.getChildren().addAll(grid, canvas);
+        whiteboard.setAlignment(Pos.CENTER);
+        whiteboard.getChildren().addAll(hWhite, grid, canvas);
         tabWhiteboard.setContent(whiteboard);
         tabWhiteboard.setStyle("-fx-background-color: rgb(137, 91, 74); -fx-text-base-color: white; -fx-background-radius: 10;");
         
