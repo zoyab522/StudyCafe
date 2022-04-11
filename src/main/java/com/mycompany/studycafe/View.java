@@ -4,12 +4,17 @@
  */
 package com.mycompany.studycafe;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -25,16 +30,20 @@ public class View {
     private final Button startPauseBtn;
     private final Scene scene;
     private final TabPane tabPane;
-    private final Tab tabOne;
+    private final Tab tabTimer;
+    private final Tab tabWelcome;
 
     // UI Setup
     public View() {
         tabPane = new TabPane();
-        tabOne = new Tab("Tab");
-        tabPane.getTabs().add(tabOne);
+        tabTimer = new Tab("Timer");
+        tabWelcome = new Tab("Welcome");
+        tabPane.getTabs().add(tabWelcome);
+        tabPane.getTabs().add(tabTimer);
         
-        //Creating a graphic (image)
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
+        // Set up the timer tab
         timerLbl = new Label("25:00");
         timerLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
         startPauseBtn = new Button("Start • Pause");
@@ -42,23 +51,48 @@ public class View {
         studySessionNumLbl = new Label();
         whatsNextLbL = new Label();
         HBox hboxOne = new HBox(timerLbl);
-        HBox hboxTwo = new HBox(studySessionNumLbl, whatsNextLbL);
+        HBox hboxTwo = new HBox(startPauseBtn);
+        HBox hboxThree = new HBox(studySessionNumLbl, whatsNextLbL);
+        
         hboxOne.setAlignment(Pos.CENTER);
         hboxTwo.setAlignment(Pos.CENTER);
-        hboxTwo.setSpacing(10);
+        hboxThree.setAlignment(Pos.CENTER);
         
-        VBox vbox = new VBox(tabPane, hboxOne, startPauseBtn, hboxTwo);
+        hboxOne.setSpacing(10);
+        hboxTwo.setSpacing(10);
+        hboxThree.setSpacing(10);
+        
+        VBox vBoxTimer = new VBox(hboxOne, hboxTwo, hboxThree);
+        tabTimer.setContent(vBoxTimer);
+        
+        // Set up Welcome Tab
+        // Adds background image 
+        // Have a nice intro image when the GUI is opened 
+        HBox bHBox = new HBox();
+        Image image = null;
 
-        scene = new Scene(vbox, 800, 800);
+        // Use a try-catch loop to get the image to work
+        try {
+            image = new Image(new FileInputStream("src/main/lofi.gif"));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+
+        ImageView imageViewTJG = new ImageView(image);
+        bHBox.getChildren().add(imageViewTJG); // getChildren line to display img
+        imageViewTJG.setPreserveRatio(true); // so the img isn't distorted
+        imageViewTJG.setFitHeight(810); 
+        
+        tabWelcome.setContent(bHBox);
+        
+        VBox vbox = new VBox(tabPane);
+
+        scene = new Scene(vbox, 1440, 810);
 
     }
     
     public TabPane gettabPane() {
         return tabPane;
-    }
-    
-    public Tab getTab() {
-        return tabOne;
     }
 
     public Scene getScene() {
