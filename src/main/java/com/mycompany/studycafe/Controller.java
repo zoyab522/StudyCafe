@@ -7,7 +7,8 @@ public class Controller {
      * @param model
      * @param view 
      */
-    //Provides functionality to start and stop timer
+    
+    //Provides the functionality to start and stop (pause) the timer
     public Controller(Model model, View view) {
         view.getStartPauseBtn().setOnAction((e) -> {
             if (model.isRunning()) {
