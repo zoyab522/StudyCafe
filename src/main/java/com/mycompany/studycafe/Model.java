@@ -1,3 +1,5 @@
+// Click here to see the source for creating the timer https://codereview.stackexchange.com/questions/256836/pomodoro-javafx-mvc-pattern-countdown-timer
+
 package com.mycompany.studycafe;
 
 import java.util.Timer;
@@ -78,14 +80,12 @@ public class Model {
                         counter = 25 * 60; 
                         studySessionNum++;
                         isBreak = false;
-                    }
+                    } 
 
                     // update labels
                     studySessionLbl.setText("Study session number: " + studySessionNum);
                     if (isBreak) {
                         whatsNextLbl.setText("Next: Study session (25 minutes)");
-                    } else if (studySessionNum == 4 || studySessionNum == 8) {
-                        whatsNextLbl.setText("Next: Long study break (15 minutes)");
                     } else {
                         whatsNextLbl.setText("Next: Short study break (5 minutes)");
                     }
