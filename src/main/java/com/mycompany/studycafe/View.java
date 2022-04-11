@@ -196,7 +196,7 @@ public class View {
         });
         
         canvas.setOnMouseDragged(e -> {
-            gc.lineTo(e.getSceneX(), e.getSceneY());
+            gc.lineTo(e.getSceneX() - 30, e.getSceneY() - 30);
             gc.stroke();
         });
         
