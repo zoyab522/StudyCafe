@@ -2,7 +2,13 @@ package com.mycompany.studycafe;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -43,23 +49,19 @@ public class View {
     private final Tab tabTasks;
     private final Tab tabMusic;
     private final Tab tabWhiteboard;
-    private final Tab tabCalendar;
     private final Canvas canvas;
-    private final Canvas canvas2;
 
     // GUI Setup
     public View() {
         tabPane = new TabPane();
         tabTimer = new Tab("Timer");
-        tabWelcome = new Tab("Welcome - Background 1");
-        tabBackground = new Tab("Background 2");
-        tabBackground2 = new Tab("Background 3");
-        tabTasks = new Tab("Tasks");
+        tabWelcome = new Tab("Lofi Study Spot 1");
+        tabBackground = new Tab("Lofi Study Spot 2");
+        tabBackground2 = new Tab("Cafe Study Spot");
+        tabTasks = new Tab("Task List");
         tabMusic = new Tab("Music");
         tabWhiteboard = new Tab("Whiteboard");
-        tabCalendar = new Tab("Calendar");
         canvas = new Canvas(1440, 700);
-        canvas2 = new Canvas(1440, 700);
         tabPane.getTabs().add(tabWelcome);
         tabPane.getTabs().add(tabBackground);
         tabPane.getTabs().add(tabBackground2);
@@ -67,7 +69,6 @@ public class View {
         tabPane.getTabs().add(tabTasks);
         tabPane.getTabs().add(tabMusic);
         tabPane.getTabs().add(tabWhiteboard);
-        tabPane.getTabs().add(tabCalendar);
         
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
@@ -78,19 +79,31 @@ public class View {
         startPauseBtn.setStyle("-fx-background-color: rgb(59,47,47); -fx-text-fill: white;"); 
         
         studySessionNumLbl = new Label();
-        studySessionNumLbl.setFont(Font.font("Noteworthy", FontWeight.BOLD, 30));
+        studySessionNumLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         whatsNextLbL = new Label();
-        whatsNextLbL.setFont(Font.font("Noteworthy", FontWeight.BOLD, 30));
+        whatsNextLbL.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        
+        // DATE ENTERED + CURRENT DATE AND TIME
+
+        Calendar localCalendar = Calendar.getInstance();
+        SimpleDateFormat SDF2 = new SimpleDateFormat("MM/dd/YYYY" 
+                + " hh:mm a");
+        String todayTime = SDF2.format(localCalendar.getTime());
+        Label SDF2Label = new Label("Time and Date Session Started: " + todayTime);
+        SDF2Label.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        
         HBox hboxOne = new HBox(timerLbl);
         HBox hboxTwo = new HBox(startPauseBtn);
         HBox hboxThree = new HBox(studySessionNumLbl, whatsNextLbL);
+        HBox hboxFour = new HBox(SDF2Label);
         
         hboxOne.setAlignment(Pos.CENTER);
         hboxTwo.setAlignment(Pos.CENTER);
         hboxThree.setAlignment(Pos.CENTER);
+        hboxFour.setAlignment(Pos.CENTER);
         hboxThree.setSpacing(20);
         
-        VBox vBoxTimer = new VBox(hboxOne, hboxTwo, hboxThree);
+        VBox vBoxTimer = new VBox(hboxOne, hboxTwo, hboxThree, hboxFour);
         vBoxTimer.setSpacing(40);
         vBoxTimer.setAlignment(Pos.CENTER);
         tabTimer.setStyle("-fx-background-color: rgb(208, 187, 148); -fx-background-radius: 10;");
@@ -181,7 +194,7 @@ public class View {
         introLabelThree = new Label("StudyCafe");
         introLabelThree.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
         introLabelThree.setTextFill(Color.web("ffffff"));
-        introLabelThree.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, new Insets(0))));
+        introLabelThree.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, new Insets(0))));
         
         HBox iHBox3 = new HBox(introLabelThree);
         VBox stackBox3 = new VBox(iHBox3);
@@ -250,11 +263,10 @@ public class View {
         tabTasks.setContent(centerTasks);  
         
         //Sets up the Music Tab
-        /* Following Code Does Not Work due to the Bug with WebView "not existing"
-        WebView musicView = new WebView();
-        musicView.getEngine().load("https://youtu.be/-9yoQ39F6TA");
-        VBox vBoxMusic = new VBox(musicView);
-        */
+        //Following Code Does Not Work due to the Bug with WebView "not existing"
+        //WebView musicView = new WebView();
+        //musicView.getEngine().load("https://youtu.be/-9yoQ39F6TA");
+        //VBox vBoxMusic = new VBox(musicView);
         
         tabMusic.setStyle("-fx-background-color: rgb(62, 55, 53); -fx-text-base-color: white; -fx-background-radius: 10;");
         
@@ -328,52 +340,6 @@ public class View {
         whiteboard.getChildren().addAll(hWhite, grid, canvas);
         tabWhiteboard.setContent(whiteboard);
         tabWhiteboard.setStyle("-fx-background-color: rgb(137, 91, 74); -fx-text-base-color: white; -fx-background-radius: 10;");
-        
-        //Sets up the Calendar Tab
-        HBox calBox = new HBox();
-        Image imgCal = null;
-
-        // Use a try-catch loop to get the image to work
-        try {
-            imgCal = new Image(new FileInputStream("src/main/april2022calendar.jpg"));
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        
-        VBox stackBox1 = new VBox();
-        stackBox1.setAlignment(Pos.CENTER);
-        stackBox1.setSpacing(20);
-        
-        HBox hStack1 = new HBox(stackBox1);
-        hStack1.setAlignment(Pos.CENTER);
-
-        ImageView imageViewCal = new ImageView(imgCal);
-        imageViewCal.setPreserveRatio(true); // so the img isn't distorted
-        imageViewCal.setFitHeight(810);
-        
-        GraphicsContext gc1 = canvas2.getGraphicsContext2D();
-        gc1.setStroke(Color.BLACK);
-        gc1.setLineWidth(3);
-        
-        // 
-        canvas2.setOnMousePressed(e -> {
-            gc1.beginPath();
-            gc1.lineTo(e.getSceneX(), e.getSceneY()-100);
-            gc1.stroke();
-        });
-        
-        canvas2.setOnMouseDragged(e -> {
-            gc1.lineTo(e.getSceneX(), e.getSceneY()-100);
-            gc1.stroke();
-        });
-        
-        StackPane stackPane1 = new StackPane();
-        stackPane1.getChildren().addAll(imageViewCal, hStack1, canvas2);
-        calBox.getChildren().add(stackPane1); 
-        calBox.setAlignment(Pos.CENTER);
-        calBox.setStyle("-fx-background-color: rgb(255, 255, 255);");
-        tabCalendar.setContent(calBox);
-        tabCalendar.setStyle("-fx-background-color: rgb(208, 187, 148); -fx-background-radius: 10;");
        
         //Adds the tabPane of tabs to one VBox aand initializes the scene
         VBox vbox = new VBox(tabPane);
