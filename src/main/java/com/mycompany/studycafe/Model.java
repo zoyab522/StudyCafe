@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.studycafe;
 
 import java.util.Timer;
@@ -9,10 +5,6 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 
-/**
- *
- * @author zoya
- */
 public class Model {
     private boolean isRunning = false;
     private boolean isBreak = false;
@@ -20,25 +12,45 @@ public class Model {
     private int counter = 60 * 25; 
     private final Label timerLbl, studySessionLbl, whatsNextLbl;
     private int seconds, minutes, studySessionNum =0;
-
+    
+    /**
+     * 
+     * @param timerLbl
+     * @param studySessionLbl
+     * @param whatsNextLbl 
+     */
     public Model(Label timerLbl, Label studySessionLbl, Label whatsNextLbl) {
         this.timerLbl = timerLbl;
         this.studySessionLbl = studySessionLbl;
         this. whatsNextLbl = whatsNextLbl;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean isRunning() {
         return isRunning;
     }
 
+    /**
+     * 
+     * @param running 
+     */
     public void setRunning(boolean running) {
         isRunning = running;
     }
-
+    
+    /**
+     * Pauses the timer
+     */
     public void pauseTimer() {
         timer.cancel();
     }
-
+    
+    /**
+     * Starts the timer and adds the logic for it
+     */
     public void startTimer() {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
