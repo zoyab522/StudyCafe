@@ -203,12 +203,12 @@ public class View {
         // 
         canvas.setOnMousePressed(e -> {
             gc.beginPath();
-            gc.lineTo(e.getSceneX(), e.getSceneY());
+            gc.lineTo(e.getSceneX(), e.getSceneY()-100);
             gc.stroke();
         });
         
         canvas.setOnMouseDragged(e -> {
-            gc.lineTo(e.getSceneX(), e.getSceneY());
+            gc.lineTo(e.getSceneX(), e.getSceneY()-100);
             gc.stroke();
         });
         
@@ -234,13 +234,27 @@ public class View {
             gc.setLineWidth(value);
         });
         
-        grid.addRow(0, cp, slider, strokeVal);
+        Button darkMode = new Button("Dark Mode");
+        Button lightMode = new Button("Light Mode");
+        
+        grid.addRow(0, cp, slider, strokeVal, darkMode, lightMode);
         grid.setHgap(20);
         grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(20,0,0,0));
         
         VBox whiteboard = new VBox();
         whiteboard.setAlignment(Pos.CENTER);
+                
+        //Sets button to allow to change to dark or light mode
+        darkMode.setOnAction(e -> {
+            whiteboard.setStyle("-fx-background-color: rgb(0, 0, 0);");
+            titleWhiteboard.setStyle("-fx-text-fill: white;");
+        });
+        lightMode.setOnAction(e -> {
+            whiteboard.setStyle("-fx-background-color: rgb(255, 255, 255);");
+            titleWhiteboard.setStyle("-fx-text-fill: black;");
+        });
+        
         whiteboard.getChildren().addAll(hWhite, grid, canvas);
         tabWhiteboard.setContent(whiteboard);
         tabWhiteboard.setStyle("-fx-background-color: rgb(137, 91, 74); -fx-text-base-color: white; -fx-background-radius: 10;");
@@ -269,17 +283,17 @@ public class View {
         
         GraphicsContext gc1 = canvas2.getGraphicsContext2D();
         gc1.setStroke(Color.BLACK);
-        gc1.setLineWidth(1);
+        gc1.setLineWidth(3);
         
         // 
         canvas2.setOnMousePressed(e -> {
             gc1.beginPath();
-            gc1.lineTo(e.getSceneX(), e.getSceneY());
+            gc1.lineTo(e.getSceneX(), e.getSceneY()-100);
             gc1.stroke();
         });
         
         canvas2.setOnMouseDragged(e -> {
-            gc1.lineTo(e.getSceneX(), e.getSceneY());
+            gc1.lineTo(e.getSceneX(), e.getSceneY()-100);
             gc1.stroke();
         });
         
