@@ -15,7 +15,7 @@ public class App extends Application {
         Model model = new Model(view.getTimerLbl(), view.getStudySessionNumLbl(), view.getWhatsNextLbL());
         new Controller(model, view);
         view.getScene().getStylesheets().add("application.css");
-        stage.setTitle("Pomodoro Timer");
+        stage.setTitle("Study Cafe Pomodoro Timer");
         stage.setScene(view.getScene());
         stage.show();
 

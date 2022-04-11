@@ -6,8 +6,10 @@ package com.mycompany.studycafe;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.HashSet;
+import java.util.Set;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,8 +17,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -26,14 +33,14 @@ import javafx.scene.text.FontWeight;
  */
 public class View {
     
-    private final Label studySessionNumLbl, whatsNextLbL, timerLbl;
+    private final Label studySessionNumLbl, whatsNextLbL, timerLbl, introLbl, introTwoLbl;
     private final Button startPauseBtn;
     private final Scene scene;
     private final TabPane tabPane;
     private final Tab tabTimer;
     private final Tab tabWelcome;
 
-    // UI Setup
+    // GUI Setup
     public View() {
         tabPane = new TabPane();
         tabTimer = new Tab("Timer");
@@ -58,9 +65,9 @@ public class View {
         hboxTwo.setAlignment(Pos.CENTER);
         hboxThree.setAlignment(Pos.CENTER);
         
-        hboxOne.setSpacing(10);
-        hboxTwo.setSpacing(10);
-        hboxThree.setSpacing(10);
+        hboxOne.setSpacing(20);
+        hboxTwo.setSpacing(20);
+        hboxThree.setSpacing(20);
         
         VBox vBoxTimer = new VBox(hboxOne, hboxTwo, hboxThree);
         tabTimer.setContent(vBoxTimer);
@@ -73,15 +80,38 @@ public class View {
 
         // Use a try-catch loop to get the image to work
         try {
-            image = new Image(new FileInputStream("src/main/lofi.gif"));
+            image = new Image(new FileInputStream("src/main/lofiOne.gif"));
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         }
+        
+        introLbl = new Label("StudyCafe\n");
+        introTwoLbl = new Label("Take a seat. Stay awhile. \nStudy with our Pomodoro Timer.");
+        introLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        introTwoLbl.setFont(Font.font("Verdana", 20));
+        introLbl.setTextFill(Color.web("#ffffff"));
+        introTwoLbl.setTextFill(Color.web("#ffffff"));
+        introLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, new CornerRadii(3), new Insets(8))));
+        introTwoLbl.setBackground(new Background(new BackgroundFill(Color.DARKBLUE, new CornerRadii(3), new Insets(8))));
+        
+        HBox iHBox = new HBox(introLbl);
+        HBox iHBoxTwo = new HBox(introTwoLbl);
+        iHBox.setSpacing(20);
+        iHBoxTwo.setSpacing(20);
+        
+        VBox stackBox = new VBox(iHBox, iHBoxTwo);
+        stackBox.setAlignment(Pos.CENTER);
+        
+        HBox hStack = new HBox(stackBox);
+        hStack.setAlignment(Pos.CENTER);
 
         ImageView imageViewTJG = new ImageView(image);
-        bHBox.getChildren().add(imageViewTJG); // getChildren line to display img
         imageViewTJG.setPreserveRatio(true); // so the img isn't distorted
         imageViewTJG.setFitHeight(810); 
+        
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageViewTJG, hStack);
+        bHBox.getChildren().add(stackPane); 
         
         tabWelcome.setContent(bHBox);
         
