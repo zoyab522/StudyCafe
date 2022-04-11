@@ -3,8 +3,6 @@ package com.mycompany.studycafe;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,19 +26,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 //import javafx.scene.web.WebView;
 
 public class View {
     
-    private final Label studySessionNumLbl, whatsNextLbL, timerLbl, introLbl, toDoLbl;
+    private final Label studySessionNumLbl, whatsNextLbL, timerLbl, introLbl, introLblTwo, introLabelThree, toDoLbl;
     private final Button startPauseBtn;
     private final Scene scene;
     private final TabPane tabPane;
     private final Tab tabTimer;
     private final Tab tabWelcome;
+    private final Tab tabBackground;
+    private final Tab tabBackground2;
     private final Tab tabTasks;
     private final Tab tabMusic;
     private final Tab tabWhiteboard;
@@ -52,7 +51,9 @@ public class View {
     public View() {
         tabPane = new TabPane();
         tabTimer = new Tab("Timer");
-        tabWelcome = new Tab("Welcome");
+        tabWelcome = new Tab("Welcome - Background 1");
+        tabBackground = new Tab("Background 2");
+        tabBackground2 = new Tab("Background 3");
         tabTasks = new Tab("Tasks");
         tabMusic = new Tab("Music");
         tabWhiteboard = new Tab("Whiteboard");
@@ -60,6 +61,8 @@ public class View {
         canvas = new Canvas(1440, 700);
         canvas2 = new Canvas(1440, 700);
         tabPane.getTabs().add(tabWelcome);
+        tabPane.getTabs().add(tabBackground);
+        tabPane.getTabs().add(tabBackground2);
         tabPane.getTabs().add(tabTimer);
         tabPane.getTabs().add(tabTasks);
         tabPane.getTabs().add(tabMusic);
@@ -132,6 +135,73 @@ public class View {
         
         tabWelcome.setContent(bHBox);
         
+        //Set up Background Tab (first)
+        HBox backHBox = new HBox();
+        Image imageOne = null;
+        
+        try {
+            imageOne = new Image(new FileInputStream("src/main/nightcafe.gif"));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        introLblTwo = new Label("StudyCafe");
+        introLblTwo.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        introLblTwo.setTextFill(Color.web("ffffff"));
+        introLblTwo.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, new Insets(0))));
+        
+        HBox iHBox2 = new HBox(introLblTwo);
+        VBox stackBox2 = new VBox(iHBox2);
+        stackBox2.setAlignment(Pos.CENTER);
+        stackBox2.setSpacing(20);
+        
+        HBox hStack2 = new HBox(stackBox2);
+        hStack2.setAlignment(Pos.CENTER);
+        
+        ImageView imageViewTJG2 = new ImageView(imageOne);
+        imageViewTJG2.setPreserveRatio(true);
+        imageViewTJG2.setFitHeight(840);
+        
+        StackPane stackPane2 = new StackPane();
+        stackPane2.getChildren().addAll(imageViewTJG2, hStack2);
+        backHBox.getChildren().add(stackPane2);
+        tabBackground.setStyle("-fx-background-color: rgb(137, 91, 74); -fx-text-base-color: white; -fx-background-radius: 10;");
+        tabBackground.setContent(backHBox);
+        
+        //Set up Background Tab (second)
+        HBox backHBox2 = new HBox();
+        Image imageTwo = null;
+        
+        try {
+            imageTwo = new Image(new FileInputStream("src/main/coffee.gif"));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        introLabelThree = new Label("StudyCafe");
+        introLabelThree.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+        introLabelThree.setTextFill(Color.web("ffffff"));
+        introLabelThree.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, new Insets(0))));
+        
+        HBox iHBox3 = new HBox(introLabelThree);
+        VBox stackBox3 = new VBox(iHBox3);
+        stackBox3.setAlignment(Pos.CENTER);
+        stackBox3.setSpacing(20);
+        
+        HBox hStack3 = new HBox(stackBox3);
+        hStack3.setAlignment(Pos.CENTER);
+        
+        ImageView imageViewTJG3 = new ImageView(imageTwo);
+        imageViewTJG3.setPreserveRatio(true);
+        imageViewTJG3.setFitHeight(840);
+        
+        StackPane stackPane3 = new StackPane();
+        stackPane3.getChildren().addAll(imageViewTJG3, hStack3);
+        backHBox2.getChildren().add(stackPane3);
+        tabBackground2.setStyle("-fx-background-color: rgb(137, 91, 74); -fx-text-base-color: white; -fx-background-radius: 10;");
+        tabBackground2.setContent(backHBox2);
+
+
         //Sets up the Task Tab
         toDoLbl = new Label("To-Do List");
         toDoLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
