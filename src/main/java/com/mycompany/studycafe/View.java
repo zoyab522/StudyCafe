@@ -41,12 +41,13 @@ public class View {
         
         studySessionNumLbl = new Label();
         whatsNextLbL = new Label();
-        HBox hbox = new HBox(studySessionNumLbl, whatsNextLbL);
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(10);
+        HBox hboxOne = new HBox(timerLbl);
+        HBox hboxTwo = new HBox(studySessionNumLbl, whatsNextLbL);
+        hboxOne.setAlignment(Pos.CENTER);
+        hboxTwo.setAlignment(Pos.CENTER);
+        hboxTwo.setSpacing(10);
         
-        VBox vbox = new VBox(tabPane, timerLbl, startPauseBtn, hbox);
-        vbox.setAlignment(Pos.CENTER);
+        VBox vbox = new VBox(tabPane, hboxOne, startPauseBtn, hboxTwo);
 
         scene = new Scene(vbox, 800, 800);
 
