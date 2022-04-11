@@ -44,7 +44,9 @@ public class View {
     private final Tab tabTasks;
     private final Tab tabMusic;
     private final Tab tabWhiteboard;
+    private final Tab tabCalendar;
     private final Canvas canvas;
+    private final Canvas canvas2;
 
     // GUI Setup
     public View() {
@@ -54,12 +56,15 @@ public class View {
         tabTasks = new Tab("Tasks");
         tabMusic = new Tab("Music");
         tabWhiteboard = new Tab("Whiteboard");
+        tabCalendar = new Tab("Calendar");
         canvas = new Canvas(1440, 700);
+        canvas2 = new Canvas(1440, 700);
         tabPane.getTabs().add(tabWelcome);
         tabPane.getTabs().add(tabTimer);
         tabPane.getTabs().add(tabTasks);
         tabPane.getTabs().add(tabMusic);
         tabPane.getTabs().add(tabWhiteboard);
+        tabPane.getTabs().add(tabCalendar);
         
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
@@ -184,7 +189,6 @@ public class View {
         tabMusic.setStyle("-fx-background-color: rgb(62, 55, 53); -fx-text-base-color: white; -fx-background-radius: 10;");
         
         //Sets up the Whiteboard Tab
-        
         Label titleWhiteboard = new Label("Whiteboard");
         titleWhiteboard.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
         HBox hWhite = new HBox(titleWhiteboard);
@@ -241,6 +245,52 @@ public class View {
         tabWhiteboard.setContent(whiteboard);
         tabWhiteboard.setStyle("-fx-background-color: rgb(137, 91, 74); -fx-text-base-color: white; -fx-background-radius: 10;");
         
+        //Sets up the Calendar Tab
+        HBox calBox = new HBox();
+        Image imgCal = null;
+
+        // Use a try-catch loop to get the image to work
+        try {
+            imgCal = new Image(new FileInputStream("src/main/april2022calendar.jpg"));
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        VBox stackBox1 = new VBox();
+        stackBox1.setAlignment(Pos.CENTER);
+        stackBox1.setSpacing(20);
+        
+        HBox hStack1 = new HBox(stackBox1);
+        hStack1.setAlignment(Pos.CENTER);
+
+        ImageView imageViewCal = new ImageView(imgCal);
+        imageViewCal.setPreserveRatio(true); // so the img isn't distorted
+        imageViewCal.setFitHeight(810);
+        
+        GraphicsContext gc1 = canvas2.getGraphicsContext2D();
+        gc1.setStroke(Color.BLACK);
+        gc1.setLineWidth(1);
+        
+        // 
+        canvas2.setOnMousePressed(e -> {
+            gc1.beginPath();
+            gc1.lineTo(e.getSceneX(), e.getSceneY());
+            gc1.stroke();
+        });
+        
+        canvas2.setOnMouseDragged(e -> {
+            gc1.lineTo(e.getSceneX(), e.getSceneY());
+            gc1.stroke();
+        });
+        
+        StackPane stackPane1 = new StackPane();
+        stackPane1.getChildren().addAll(imageViewCal, hStack1, canvas2);
+        calBox.getChildren().add(stackPane1); 
+        calBox.setAlignment(Pos.CENTER);
+        calBox.setStyle("-fx-background-color: rgb(255, 255, 255);");
+        tabCalendar.setContent(calBox);
+        tabCalendar.setStyle("-fx-background-color: rgb(208, 187, 148); -fx-background-radius: 10;");
+       
         //Adds the tabPane of tabs to one VBox aand initializes the scene
         VBox vbox = new VBox(tabPane);
         scene = new Scene(vbox, 1440, 810);
