@@ -59,11 +59,11 @@ public class Model {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    counter--;
+                    counter--; // The timer runs using a counter
 
-                    seconds = counter % 60;
+                    seconds = counter % 60; //use % and / operands for setting seconds and minutes
                     minutes = counter / 60;
-                    if (seconds < 10 && minutes < 10) {
+                    if (seconds < 10 && minutes < 10) { // for single digits on the timer
                         timerLbl.setText("0" + minutes + ":0" + seconds);
                     } else if (minutes < 10) {
                         timerLbl.setText("0" + minutes + ":" + seconds);
