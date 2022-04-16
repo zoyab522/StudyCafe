@@ -38,7 +38,7 @@ import javafx.scene.text.FontWeight;
 
 public class View {
 
-    private final Label studySessionNumLbl, whatsNextLbL, timerLbl, introLbl, introLblTwo, introLabelThree, toDoLbl;
+    private final Label studySessionNumLbl, whatsNextLbL, timerLbl, introLbl, introLblTwo, introLabelThree, toDoLbl, musicLbl;
     private final Button startPauseBtn;
     private final Scene scene;
     private final TabPane tabPane;
@@ -277,8 +277,15 @@ public class View {
         //browser.navigation().loadUrl("https://open.spotify.com/");
         // Create and embed JavaFX BrowserView component to display web content.
         //BrowserView view = BrowserView.newInstance(browser);
-
+        
+        musicLbl = new Label("Page unavailable but code is shown in the comments");
+        musicLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
+        musicLbl.setStyle("-fx-text-fill: rgb(59,47,47);");
+        HBox musicLabel = new HBox();
+        musicLabel.getChildren().addAll(musicLbl);
+        musicLabel.setAlignment(Pos.CENTER);
         tabMusic.setStyle("-fx-background-color: rgb(62, 55, 53); -fx-text-base-color: white; -fx-background-radius: 10;");
+        tabMusic.setContent(musicLabel);
         //tabMusic.setContent(view);
         //-----------------------------------------------------------------------------------------
 
