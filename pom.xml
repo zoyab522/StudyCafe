@@ -7,7 +7,6 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jxbrowser.version>7.24.3</jxbrowser.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
@@ -27,18 +26,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>17</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.teamdev.jxbrowser</groupId>
-            <artifactId>jxbrowser-javafx</artifactId>
-            <version>7.24.3</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.teamdev.jxbrowser</groupId>
-            <artifactId>jxbrowser</artifactId>
-            <version>7.24.3</version>
             <type>jar</type>
         </dependency>
     </dependencies>

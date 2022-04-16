@@ -30,10 +30,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import static com.teamdev.jxbrowser.engine.RenderingMode.HARDWARE_ACCELERATED;
-import com.teamdev.jxbrowser.browser.Browser;
-import com.teamdev.jxbrowser.engine.Engine;
-import com.teamdev.jxbrowser.view.javafx.BrowserView;
+//import static com.teamdev.jxbrowser.engine.RenderingMode.HARDWARE_ACCELERATED;
+//import com.teamdev.jxbrowser.browser.Browser;
+//import com.teamdev.jxbrowser.engine.Engine;
+//import com.teamdev.jxbrowser.view.javafx.BrowserView;
 
 
 public class View {
@@ -268,18 +268,18 @@ public class View {
         
         //JxBrowser Code:-------------------------------------------------------------------------
         // Initialize Chromium.
-        Engine engine = Engine.newInstance(HARDWARE_ACCELERATED);
+        //Engine engine = Engine.newInstance(HARDWARE_ACCELERATED);
 
         // Create a Browser instance.
-        Browser browser = engine.newBrowser();
+        //Browser browser = engine.newBrowser();
 
         // Load the required web page.
-        browser.navigation().loadUrl("https://open.spotify.com/");
+        //browser.navigation().loadUrl("https://open.spotify.com/");
         // Create and embed JavaFX BrowserView component to display web content.
-        BrowserView view = BrowserView.newInstance(browser);
+        //BrowserView view = BrowserView.newInstance(browser);
 
         tabMusic.setStyle("-fx-background-color: rgb(62, 55, 53); -fx-text-base-color: white; -fx-background-radius: 10;");
-        tabMusic.setContent(view);
+        //tabMusic.setContent(view);
         //-----------------------------------------------------------------------------------------
 
         //Sets up the Whiteboard Tab
